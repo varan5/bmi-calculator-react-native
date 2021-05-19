@@ -6,11 +6,11 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
-import Title from './src/components/Title'
-import BmiCalculator from './src/components/BmiCalculator'
-import GapCreator from './src/components/GapCreator'
-import DisplayImage from './src/components/DisplayImage'
+import React, {useState} from 'react';
+import Title from './src/components/Title';
+import BmiCalculator from './src/components/BmiCalculator';
+import GapCreator from './src/components/GapCreator';
+import DisplayImage from './src/components/DisplayImage';
 import {
   TextInput,
   SafeAreaView,
@@ -30,7 +30,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -43,11 +42,10 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-
         <View>
           <Title title="BMI Calculator" />
-          <DisplayImage />  
-          <BmiCalculator />          
+          <DisplayImage />
+          <BmiCalculator />
           <GapCreator height={240} />
         </View>
       </ScrollView>
@@ -55,8 +53,6 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({
- 
-});
+const styles = StyleSheet.create({});
 
 export default App;
