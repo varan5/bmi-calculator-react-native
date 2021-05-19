@@ -46,13 +46,9 @@ const App = () => {
 
         <View>
           <Title title="BMI Calculator" />
-          <GapCreator />
+          <DisplayImage />  
           <BmiCalculator />          
-          {/* <DisplayImage imageSource="https://images-na.ssl-images-amazon.com/images/I/61iSsiqXqqL.png" /> */}
-          
-          
-          
-        
+          <GapCreator height={240} />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,10 +1,13 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { Text, View, StyleSheet } from 'react-native'
 
 const Title = ({ title }) => {
     return (
         <View style={styles.containerStyle}>
-          <Text style={styles.titleStyle}>{title}</Text>
+          <TouchableOpacity>
+            <Text style={styles.titleStyle}>{title}</Text>
+          </TouchableOpacity>
         </View>
     )
 }

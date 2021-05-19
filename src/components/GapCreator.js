@@ -1,10 +1,10 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 
-const Input = () => {
+const Input = ({ height }) => {
     return (
         <View style={styles.containerStyle}>
-          <View style={styles.gapCreatorStyle} />
+          <View style={{ height: height }} />
         </View>
     )
 }
@@ -14,10 +14,6 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginTop: 20,
   },
-  gapCreatorStyle: {
-    height: 40,
-  }
-
 })
 
 export default Input

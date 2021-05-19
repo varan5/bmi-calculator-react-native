@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native'
 
 const BmiCalculator = () => {
@@ -6,28 +7,38 @@ const BmiCalculator = () => {
   const [weight, setWeight] = useState(0)
   const [height, setHeight] = useState(0)
   const [bmiValue, setBmiValue] = useState(0)
-  const [health, setHealth] = useState('Good Health')
+  const [health, setHealth] = useState('')
   const [valuesNotSelected, setValuesNotSelected] = useState(false)
   const [displayHealthCard, setDisplayHealthCard] = useState(false)
   const [healthCardVisible, setHealthCardVisible] = useState(false)
 
   const handleButtonPress = () => {
-    const bmiValue = Math.round((weight / (height * height)), 2)
+    let bmiValue = Math.round((weight / (height * height)), 2)
     setBmiValue(bmiValue)
     console.log(bmiValue) 
     if (!height || !weight) {
       setValuesNotSelected(true)
+      setHealth('')
+      setBmiValue('')
+      return 
     } else {
       setValuesNotSelected(false)
-    }
- 
-    setHealthCardVisible(true)
+    }    setHealthCardVisible(true)
+
+    if (bmiValue < 18.5) 
+      setHealth('Underweight')
+    else if (bmiValue >= 18.5 && bmiValue <= 24.9)
+      setHealth('Normal')
+    else if (bmiValue >= 25 && bmiValue <= 29.9)
+      setHealth('Overweight')
+    else 
+      setHealth('Obese')
 
   }
 
 
   const handleHealthCardButtonPress = () => {
-    console.log('Health card will be shown')
+    // console.log('Health card will be shown')
     setDisplayHealthCard(true)
 
 
@@ -37,44 +48,52 @@ const BmiCalculator = () => {
     return (
         <View style={styles.containerStyle}>
           <TextInput 
-            value={weight} 
             onChangeText={(value) => setWeight(value)} 
             style={styles.textInputStyle} 
-            keyboardType="number-pad" 
+            keyboardType="numeric"
             placeholder="Enter your weight (in Kgs)" />
 
           <TextInput 
             style={styles.textInputStyle} 
             onChangeText={(value) => setHeight(value)}
-            keyboardType="number-pad" 
+            keyboardType="numeric"
             placeholder="Enter your height (in meters)" />
-          
-          <Button 
-            style={styles.buttonStyle} 
+
+        <TouchableOpacity style={styles.buttonStyle}>         
+          <Button  
             onPress={handleButtonPress}
             color="teal" 
+            fontSize={50}
             title="Calculate BMI" />
+        </TouchableOpacity>
 
-          <Text>{valuesNotSelected ? `Please enter your values` : '' }</Text>
-          <Text>{bmiValue ? `BMI Value: ${bmiValue}`: ''}</Text>
+
+          <Text style={styles.errorTextStyle}>{valuesNotSelected ? `Please enter your values` : '' }</Text>
+          {/* <Text>{bmiValue ? `BMI Value: ${bmiValue}`: ''}</Text> */}
           <Text>
           { displayHealthCard ? 
-               <Button 
-               style={styles.buttonStyle} 
-               onPress={handleHealthCardButtonPress}
-               color="teal" 
-               title="See Health Card" />
+            <Button 
+              onPress={handleHealthCardButtonPress}
+              color="teal" 
+              title="See Health Card" />
             : ''
         }
         </Text>
         
         <Text>
         {healthCardVisible ? 
-        <Text style={styles.healthCardStyle}>
-          Health Card{"\n\n"}
-          BMI Value: {bmiValue}{"\n"}
-          Health Staus: {health}
-        </Text>
+
+          <View >
+          <TouchableOpacity style={styles.healthCardStyle}>
+            <Text style={styles.healthCardText}>
+              Health Card{"\n\n\n"}
+              BMI        :   {bmiValue}{"\n"}
+              Health   :   {health}
+            </Text>
+          </TouchableOpacity>
+          </View>
+        
+      
 
         : ''
       }
@@ -88,7 +107,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
     marginTop: 20,
-    marginBottom: 30,
   },
   textInputStyle: {
     fontSize: 20,
@@ -101,11 +119,30 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonStyle: {
-
+    fontSize: 50,
   },
   healthCardStyle: {
-   marginLeft: 40, 
+   marginLeft: 10, 
+   borderRadius: 6,
+   elevation: 20,
+   backgroundColor: '#fff',
+   shadowOffset: { width: 1, height: 1 },
+   shadowOpacity: 0.7,
+   shadowRadius: 2,
+  },
+  healthCardText: {
+    fontSize: 25,
+    marginLeft: 10,
+    padding: 20,
+    color: 'teal'
+  },
+  errorTextStyle: {
+    fontSize: 23,
+    color: 'teal',
+    marginLeft: 30,
+    
   }
+ 
 })
 
 export default BmiCalculator
